@@ -3,44 +3,21 @@
 
 using summon.Models;
 using System.Text;
-//using PersonalTimer = System.Timers;
-
-//PersonalTimer.Timer aTimer;
-
-//aTimer = new PersonalTimer.Timer();
-//aTimer.Interval = 2000;
-
-//aTimer.Elapsed += OnTimedEvent;
 
 
-//aTimer.AutoReset = true;
-
-
-//aTimer.Enabled = true;
-
-//Console.WriteLine("Press the Enter key to exit the program at any time... ");
-//Console.ReadLine();
-
-
-//void OnTimedEvent(Object source, System.Timers.ElapsedEventArgs e)
-//{
-//    Console.WriteLine("The Elapsed event was raised at {0}", e.SignalTime);
-//}
-
-
-
-
-Unit Ten = new Unit("Ten", "3");
-Unit Bulma = new Unit("Bulma", "3");
-Unit Freezer = new Unit("Freezer", "3");
-Unit KameS = new Unit("KameS", "3");
-Unit Vegeta = new Unit("Vegeta", "4");
-Unit Krillin = new Unit("Krillin", "4");
-Unit Yamcha = new Unit("Yamcha", "4");
-Unit SonGoku = new Unit("Son Goku", "5");
 
 Banner SumonExclusive = new Banner();
-SumonExclusive.AddUnit(Ten, Bulma, Freezer, KameS, Vegeta, Krillin, Yamcha, SonGoku);
+
+Unit p1 = new Unit("p", "3");
+Unit p2 = new Unit("z", "3");
+Unit p3 = new Unit("a", "3");
+Unit p4 = new Unit("d", "4");
+Unit p5 = new Unit("f", "4");
+Unit p6 = new Unit("n", "4");
+Unit p7 = new Unit("v", "5");
+
+
+SumonExclusive.AddUnit(p1, p2, p3, p4, p5, p6, p7);
 Console.OutputEncoding = Encoding.UTF8;
 //SumonExclusive.UnitsList.ForEach(unit => {
 //    Console.Write(unit.Name + " | " + unit.Rarity);
@@ -50,7 +27,9 @@ Console.OutputEncoding = Encoding.UTF8;
 //    Console.WriteLine();
 //});
 
+
 SumonExclusive.StartSumon();
 
 
+//SumonExclusive.SumonWithInterval();
 

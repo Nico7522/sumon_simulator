@@ -4,11 +4,18 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using summon.Models;
+using System.Text;
+using PersonalTimer = System.Timers;
+using System.Diagnostics.Metrics;
+using summon.Utils;
 
 namespace summon.Models
 {
     public class Banner
     {
+
+     
         #region Field
         private List<Unit> _unitsBanner;
         private string _bannerName;
@@ -80,13 +87,14 @@ namespace summon.Models
                 switch (randomInt)
                 {
                     case <= 300:
-                        Console.WriteLine($"{_unitsBanner[1].Name} | {_unitsBanner[1].Rarity} *");
+                        Method.RarityDisplay(_unitsBanner[1]);
                         break;
                     case <= 700:
-                        Console.WriteLine($"{_unitsBanner[0].Name} | {_unitsBanner[0].Rarity} *");
+                        Method.RarityDisplay(_unitsBanner[0]);
                         break;
                     case <= 900:
-                        Console.WriteLine($"{_unitsBanner[2].Name} | {_unitsBanner[2].Rarity} *");
+
+                        Method.RarityDisplay(_unitsBanner[2]);
                         break;
                 }
             }
@@ -95,20 +103,20 @@ namespace summon.Models
                 switch (randomInt)
                 {
                     case <= 935:
-                        Console.WriteLine($"{_unitsBanner[4].Name} | {_unitsBanner[4].Rarity} *");
+                        Method.RarityDisplay(_unitsBanner[4]);
                         break;
                     case <= 960:
-                        Console.WriteLine($"{_unitsBanner[3].Name} | {_unitsBanner[3].Rarity} *");
+                        Method.RarityDisplay(_unitsBanner[3]);
                         break;
                     case <= 989:
-                        Console.WriteLine($"{_unitsBanner[5].Name} | {_unitsBanner[5].Rarity} *");
+                        Method.RarityDisplay(_unitsBanner[5]);
                         break;
                 }
             }
             else
             {
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine($"{_unitsBanner[6].Name} | {_unitsBanner[6].Rarity} *");
+                Method.RarityDisplay(_unitsBanner[6]);
                 Console.ForegroundColor = ConsoleColor.White;
             }
         }
@@ -129,14 +137,15 @@ namespace summon.Models
                 }
                 else if (response == "2")
                 {
-                    int i = 0;
-                    while (i < 10)
-                    {
-                        this.OnSumon += this.Sumon;
-                        i++;
-                    }
+                    //int i = 0;
+                    //while (i < 10)
+                    //{
+                    //    //this.OnSumon += this.Sumon;
+                    //    i++;
+                    //}
 
-                    OnSumon?.Invoke();
+                    SumonWithInterval();
+                    //OnSumon?.Invoke();
                     stop = true;
                 }
                 else if (response == "3")
@@ -153,6 +162,67 @@ namespace summon.Models
 
             }
         }
+
+        private void DisplayLoading()
+        {
+            PersonalTimer.Timer bTimer;
+
+            bTimer = new PersonalTimer.Timer();
+            int count = 0;
+            bTimer.Interval = 300;
+            bTimer.Elapsed += OnTimedEvent2;
+            bTimer.AutoReset = true;
+            bTimer.Enabled = true;
+            void OnTimedEvent2(object sender, EventArgs e)
+            {
+                if (count < 3)
+                {
+                Console.Write("-");
+                count++;
+                } else
+                {
+                    bTimer.Stop();
+                }
+            }
+        }
+
+        public void SumonWithInterval()
+        {
+            PersonalTimer.Timer aTimer;
+         
+            aTimer = new PersonalTimer.Timer();
+            aTimer.Interval = 1000;
+            int count = 0;
+
+            aTimer.Elapsed += OnTimedEvent;
+            aTimer.AutoReset = true;
+            aTimer.Stop();
+
+            aTimer.Enabled = true;
+
+
+                Console.WriteLine("Loading ...");
+            Console.ReadLine();
+            aTimer.Stop();
+            void OnTimedEvent(Object source, System.Timers.ElapsedEventArgs e)
+            {
+                if (count < 10)
+                {
+                    DisplayLoading();
+                    Console.WriteLine();
+                    this.Sumon();
+                    count++;
+             
+                }
+                else
+                {
+                    aTimer.Stop();
+                    Environment.Exit(0);
+
+                }
+            }
+        }
+
         #endregion
     }
 }
